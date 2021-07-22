@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
- * @ApiResource(normalizationContext={"groups"={"read:collection","read:Post"}}  , itemOperations={"put","delete","get"={"normalization_context" = {"groups"={"read:item","read:collection","read:Post"}}}})
+ * @ApiResource(normalizationContext={"groups"={"read:collection","read:Post"}},collectionOperations={"get","post"={"validation_groups"={"PostValidation"}}},itemOperations={"put","delete","get"={"normalization_context" = {"groups"={"read:item","read:collection","read:Post"}}}},paginationItemsPerPage=5,paginationMaximumItemsPerPage=20,paginationClientItemsPerPage=true)
  */
 
 
@@ -27,7 +27,7 @@ class Post
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"read:collection"})
-     * @Assert\Length(min = 2)
+     * @Assert\Length(min = 2 , groups={"PostValidation"})
      */
     private $title;
 

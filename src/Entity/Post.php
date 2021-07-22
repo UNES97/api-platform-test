@@ -7,10 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use DateTime;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
- * @ApiResource(normalizationContext={"groups"={"read:collection","read:Post"}} , collectionOperations={"get"} , itemOperations={"put","delete","get"={"normalization_context" = {"groups"={"read:item","read:collection","read:Post"}}}})
+ * @ApiResource(normalizationContext={"groups"={"read:collection","read:Post"}}  , itemOperations={"put","delete","get"={"normalization_context" = {"groups"={"read:item","read:collection","read:Post"}}}})
  */
+
+
 class Post
 {
     /**
@@ -24,6 +27,7 @@ class Post
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"read:collection"})
+     * @Assert\Length(min = 2)
      */
     private $title;
 
